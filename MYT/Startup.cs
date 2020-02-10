@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -33,10 +34,20 @@ namespace MYT
 
             services.AddDbContext<AppDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("MYTDatabase")));
 
+            services.AddIdentity<DbUser, DbRole>(options => 
+                options.Stores.MaxLengthForKeys = 128)
+                .AddEntityFrameworkStores<AppDbContext>()
+                .AddDefaultTokenProviders();            
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(
+        IApplicationBuilder app, 
+        IHostingEnvironment env,
+        UserManager<DbUser> userManager,
+        RoleManager<DbRole> roleManager,
+        AppDbContext context)
         {
             if (env.IsDevelopment())
             {
@@ -51,6 +62,10 @@ namespace MYT
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
+
+            app.UseAuthentication();
+
+            MyIdentityDataInitializer.SeedData(userManager, roleManager, context);
 
             app.UseMvc(routes =>
             {
