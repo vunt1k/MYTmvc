@@ -14,6 +14,6 @@ namespace MYT.Data
         public bool IsDone { get; set; }
         public bool IsDeleted { get; set; }
 
-        public ApplicationUser UserId { get; set; }
+        public UserProfile UserId { get; set; }
     }
 }
