@@ -285,3 +285,10 @@ input[type=text], input[type=password], input[type=email] {
     width: 6rem;
     height: 8rem;
 }
+
+.warn{
+    font-size: 0.6rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    color: red;
+}

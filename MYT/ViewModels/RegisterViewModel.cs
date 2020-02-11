@@ -9,23 +9,21 @@ namespace MYT.ViewModels
     public class RegisterViewModel
     {
         [Required]
-        [DataType(DataType.EmailAddress)]
-        [Display(Name = "Email")]
+        [DataType(DataType.EmailAddress, ErrorMessage = "It's an e-mail!")]
         public string Email { get; set; }
 
         [Required]
-        [Display(Name = "Name")]
+        [StringLength(15, ErrorMessage = "Your Name is too long!")]
         public string Name { get; set; }
 
         [Required]
+        [StringLength(20, MinimumLength = 10)]
         [DataType(DataType.Password)]
-        [Display(Name = "Пароль")]
         public string Password { get; set; }
 
         [Required]
-        [Compare("Password", ErrorMessage = "Пароли не совпадают")]
+        [Compare("Password", ErrorMessage = "Passwords don't match!")]
         [DataType(DataType.Password)]
-        [Display(Name = "Подтвердить пароль")]
         public string PasswordConfirm { get; set; }
     }
 }
