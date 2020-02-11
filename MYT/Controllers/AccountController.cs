@@ -68,5 +68,17 @@ namespace MYT.Controllers
             
             return View(model);
         }
+
+        [HttpGet]
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+        //[HttpPost]
+        //public async Task<IActionResult> Login()
+        //{
+        //    return
+        //}
     }
 }

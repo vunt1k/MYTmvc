@@ -1,29 +1,64 @@
 ﻿@model MYT.ViewModels.RegisterViewModel
 
-<h2>Регистрация нового пользователя</h2>
-<form method="post" asp-controller="Account" asp-action="Register">
-    <div asp-validation-summary="ModelOnly"></div>
-    <div>
-        <label asp-for="Email"></label><br />
-        <input asp-for="Email" />
-        <span asp-validation-for="Email"></span>
+@*<h2>Регистрация нового пользователя</h2>
+    <form method="post" asp-controller="Account" asp-action="Register">
+        <div asp-validation-summary="ModelOnly"></div>
+        <div>
+            <label asp-for="Email"></label><br />
+            <input asp-for="Email" />
+            <span asp-validation-for="Email"></span>
+        </div>
+        <div>
+            <label asp-for="Name"></label><br />
+            <input asp-for="Name" />
+            <span asp-validation-for="Name"></span>
+        </div>
+        <div>
+            <label asp-for="Password"></label><br />
+            <input asp-for="Password" />
+            <span asp-validation-for="Password"></span>
+        </div>
+        <div>
+            <label asp-for="PasswordConfirm"></label><br />
+            <input asp-for="PasswordConfirm" />
+            <span asp-validation-for="PasswordConfirm"></span>
+        </div>
+        <div>
+            <input type="submit" value="Регистрация" />
+        </div>
+    </form>*@
+
+@{
+    Layout = null;
+}
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Login</title>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link href="~/css/login.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="wrapper fadeInDown">
+        <div id="formContent">
+            <div class="fadeIn first">
+                <img src="https://i.ya-webdesign.com/images/vector-login-username-5.png" id="icon" alt="User Icon" />
+            </div>
+            <form method="post" asp-controller="Account" asp-action="Register">
+                <div asp-validation-summary="ModelOnly"></div>
+                <input asp-for="Name" type="text" class="fadeIn second" placeholder="Username">
+                <input asp-for="Email" type="email" class="fadeIn second" placeholder="Email">
+                <input asp-for="Password" type="password" class="fadeIn third" placeholder="Password">
+                <input asp-for="PasswordConfirm" type="password" class="fadeIn third" placeholder="RepeatPassword">
+                <input type="submit" class="fadeIn fourth" value="Register">
+            </form>
+            @*<div id="formFooter">
+                <a class="underlineHover" href="#">Forgot Password?</a>
+            </div>*@
+        </div>
     </div>
-    <div>
-        <label asp-for="Name"></label><br />
-        <input asp-for="Name" />
-        <span asp-validation-for="Name"></span>
-    </div>    
-    <div>
-        <label asp-for="Password"></label><br />
-        <input asp-for="Password" />
-        <span asp-validation-for="Password"></span>
-    </div>
-    <div>
-        <label asp-for="PasswordConfirm"></label><br />
-        <input asp-for="PasswordConfirm" />
-        <span asp-validation-for="PasswordConfirm"></span>
-    </div>
-    <div>
-        <input type="submit" value="Регистрация" />
-    </div>
-</form>
+</body>
+</html>
