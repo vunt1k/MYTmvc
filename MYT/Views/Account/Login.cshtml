@@ -1,4 +1,5 @@
-﻿
+﻿@model MYT.ViewModels.LoginViewModel
+
 @{
     Layout = null;
 }
@@ -20,14 +21,14 @@
             <div class="fadeIn first">
                 <img src="https://i.ya-webdesign.com/images/vector-login-username-5.png" id="icon" alt="User Icon" />
             </div>
-            <form>
-                <input type="text" id="login" class="fadeIn second" name="login" placeholder="login">
-                <input type="password" id="password" class="fadeIn third" name="login" placeholder="password">
+            <form asp-action="Login" asp-controller="Account" asp-antiforgery="true">
+                <input asp-for="Email" type="text" id="login" class="fadeIn second" placeholder="login">
+                <input asp-for="Password" type="password" id="password" class="fadeIn third" placeholder="password">
                 <input type="submit" class="fadeIn fourth" value="Log In">
             </form>
             <div id="formFooter">
                 <a class="underlineHover" href="#">Forgot Password? /</a>
-                <a class="underlineHover" href="#">Register</a>
+                <a asp-action="Register" asp-controller="Account" class="underlineHover">Register</a>
             </div>
         </div>
     </div>

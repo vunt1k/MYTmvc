@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -37,7 +38,14 @@ namespace MYT
             services.AddIdentity<DbUser, DbRole>(options => 
                 options.Stores.MaxLengthForKeys = 128)
                 .AddEntityFrameworkStores<AppDbContext>()
-                .AddDefaultTokenProviders();            
+                .AddDefaultTokenProviders();
+
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options =>
+                {
+                    options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Account/Login");
+                    options.AccessDeniedPath = new Microsoft.AspNetCore.Http.PathString("/Account/Login");
+                });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
@@ -49,6 +57,8 @@ namespace MYT
         RoleManager<DbRole> roleManager,
         AppDbContext context)
         {
+            app.UseAuthentication();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -63,7 +73,6 @@ namespace MYT
             app.UseStaticFiles();
             app.UseCookiePolicy();
 
-            app.UseAuthentication();
 
             MyIdentityDataInitializer.SeedData(userManager, roleManager, context);
 
