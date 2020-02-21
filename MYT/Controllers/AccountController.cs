@@ -5,11 +5,14 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using MYT.Data.AppContext;
 using MYT.Data.Entity;
+using MYT.Data.Models;
 using MYT.ViewModels;
+using Newtonsoft.Json;
 
 namespace MYT.Controllers
 {
@@ -107,7 +110,15 @@ namespace MYT.Controllers
             await _signInManager.SignInAsync(user, isPersistent: true);
 
             await Authenticate(model.Email);
-            
+
+            var userInfo = new UserInfo()
+            {
+                Id = user.Id,
+                Email = user.Email
+            };
+
+            HttpContext.Session.SetString("SessionUserData", JsonConvert.SerializeObject(userInfo));
+
             return RedirectToAction("Index", "Home");
         }
 

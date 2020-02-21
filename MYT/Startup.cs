@@ -48,6 +48,9 @@ namespace MYT
                 });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            services.AddMemoryCache();
+            services.AddSession();
         }
 
         public void Configure(
@@ -75,6 +78,8 @@ namespace MYT
 
 
             MyIdentityDataInitializer.SeedData(userManager, roleManager, context);
+
+            app.UseSession();
 
             app.UseMvc(routes =>
             {
